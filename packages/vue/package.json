@@ -1,0 +1,12 @@
+{
+  "name": "shuimo-gitalk-vue",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite --port 3333 --open",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "vue": "^3.3.4"
+  }
+}

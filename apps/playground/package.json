@@ -1,0 +1,18 @@
+{
+  "name": "shuimo-gitalk-playground",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite --port 3333 --open",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.3",
+    "unplugin-auto-import": "^0.16.6",
+    "unplugin-vue-components": "^0.25.1",
+    "vite": "^4.4.9"
+  }
+}
