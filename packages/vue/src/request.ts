@@ -4,13 +4,13 @@ interface SourcesTypes {
     umet: string;
     cancel: Canceler;
 }
+
 interface ResponseTypes {
     code: number;
     data: unknown;
     message: string;
 }
-// const mappRequestPrefix = window.mappRequestPrefix;
-// const isDev = window.isDev;
+
 const http = axios.create({
     // 请求携带描述多语言信息的头部
     headers: {
@@ -94,9 +94,9 @@ http.interceptors.response.use(
 /**
  * get方法，对应get请求
  * @param {String} url [请求的url地址]
- * @param {AxiosResponse} params [请求时携带的参数]
+ * @param {any} params [请求时携带的参数]
  */
-function get<T>(url: string, params = {}): Promise<AxiosResponse<T>['data']> {
+function shuimoGet<T>(url: string, params: Record<string, string | number>): Promise<AxiosResponse<T>['data']> {
     return new Promise((resolve, reject) => {
         http.get(url, {
             params,
@@ -115,7 +115,7 @@ function get<T>(url: string, params = {}): Promise<AxiosResponse<T>['data']> {
  * @param {String} url [请求的url地址]
  * @param {AxiosResponse} params [请求时携带的参数]
  */
-function post<T>(url: string, params = {}): Promise<AxiosResponse<T>['data']> {
+function shuimoPost<T, D extends Object>(url: string, params: D): Promise<AxiosResponse<T>['data']> {
     return new Promise((resolve, reject) => {
         http.post(url, params)
             .then((res: AxiosResponse<T>) => {
@@ -139,4 +139,4 @@ export const formatErrorMsg = (err: { response: { data: { message: any; errors: 
 }
 
 // 对外暴露
-export { post, get };
+export { shuimoPost, shuimoGet };

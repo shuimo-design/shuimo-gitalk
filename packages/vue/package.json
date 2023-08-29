@@ -1,5 +1,6 @@
 {
   "name": "shuimo-gitalk-vue",
+  "types": "index.d.ts",
   "scripts": {
     "build": "vite build",
     "dev": "vite --port 3333 --open",
