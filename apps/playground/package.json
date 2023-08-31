@@ -7,13 +7,12 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "shuimo-gitalk-vue": "workspace:*"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.3.3",
     "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.1",
-    "@vitejs/plugin-vue-jsx": "^3.0.2",
-    "vite": "^4.4.9"
+    "@vitejs/plugin-vue-jsx": "^3.0.2"
   }
 }

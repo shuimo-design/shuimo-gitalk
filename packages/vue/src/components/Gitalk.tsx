@@ -8,5 +8,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {}
+  setup(props) {
+    console.log(props)
+    return () => <div class="content">content</div>
+  }
 })

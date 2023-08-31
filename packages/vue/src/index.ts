@@ -1,4 +1,4 @@
-import { Teleport, h } from 'vue';
+import { createApp } from 'vue';
 import GitalkComponent from './components/Gitalk';
 
 class Gitalk {
@@ -9,9 +9,9 @@ class Gitalk {
   }
 
   render(constainer: HTMLElement | string) {
-    return h(Teleport, { to: constainer }, [
-      h(GitalkComponent, { options: this._options })
-    ])
+    return createApp(GitalkComponent, {
+      options: this._options
+      }).mount(constainer);
   }
 }
 

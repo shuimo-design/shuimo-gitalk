@@ -62,6 +62,6 @@ const getQL = (vars: Record<string, any>, pagerDirection: 'last' | 'before') => 
 }
 
 
-const useGraphql = (issue: any) => {
+export default function useGraphql(issue: any) {
 
 }

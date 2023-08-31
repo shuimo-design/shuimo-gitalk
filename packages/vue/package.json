@@ -1,8 +1,17 @@
 {
   "name": "shuimo-gitalk-vue",
-  "types": "index.d.ts",
+  "main": "dist/shuimo-gitalk-vue.mjs",
+  "module": "dist/shuimo-gitalk-vue.mjs",
+  "browser": "dist/shuimo-gitalk-vue.umd.js",
+  "types": "types.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types.d.ts",
+      "import": "./dist/shuimo-gitalk-vue.mjs"
+    }
+  },
   "scripts": {
-    "build": "vite build",
+    "build": "rimraf ./dist && vite build",
     "dev": "vite --port 3333 --open",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit"
