@@ -1,5 +1,5 @@
-export const queryParse = (search = window.location.search) => {
-  if (!search) return {}
+export const queryParse = <T>(search = window.location.search) => {
+  if (!search) return {} as T
   const queryString = search[0] === '?' ? search.slice(1) : search
   const query: Record<string, any> = {}
   queryString.split('&').forEach((queryStr) => {
@@ -7,7 +7,7 @@ export const queryParse = (search = window.location.search) => {
     if (key) query[decodeURIComponent(key)] = decodeURIComponent(value)
   })
 
-  return query
+  return query as T
 }
 
 export const queryStringify = (query: Record<string, any>) => {

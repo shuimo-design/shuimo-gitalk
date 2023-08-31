@@ -160,5 +160,11 @@ export const formatErrorMsg = (err: {
   return msg
 }
 
+const shuimoJSON = axios.create({
+  headers: {
+    Accept: 'application/json',
+  },
+})
+
 // 对外暴露
-export { shuimoPost, shuimoGet }
+export { shuimoPost, shuimoGet, shuimoJSON }

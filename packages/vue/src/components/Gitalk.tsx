@@ -1,5 +1,8 @@
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { GT_COMMENT } from '@/constant'
+import { queryParse, queryStringify } from '@/utils'
+import { shuimoJSON } from '@/request'
+import { setState, state } from '@/store'
 import type { PropType } from 'vue'
 
 export default defineComponent({
@@ -11,68 +14,51 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const state = reactive<GitalkState>({
-      user: undefined,
-      issue: undefined,
-      comments: [],
-      localComments: [],
-      comment: '',
-      page: 1,
-      pagerDirection: 'last',
-      cursor: undefined,
-      previewHtml: '',
-      isNoInit: false,
-      isIniting: true,
-      isCreating: false,
-      isLoading: false,
-      isLoadMore: false,
-      isLoadOver: false,
-      isIssueCreating: false,
-      isPopupVisible: false,
-      isInputFocused: false,
-      isPreview: false,
-      isOccurError: false,
-      errorMsg: '',
-    })
+    setState<GitalkState, 'options'>(state, 'options', props.options)
 
-    const innerOptions: Required<GitalkOptions> = Object.assign(
-      {},
-      {
-        id: window.location.href,
-        number: -1,
-        labels: ['Gitalk'],
-        title: window.document.title,
-        body: '',
-        language: window.navigator.language || window.navigator.language,
-        perPage: 10,
-        pagerDirection: 'last',
-        createIssueManually: false,
-        distractionFreeMode: false,
-        proxy:
-          'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
-        flipMoveOptions: {
-          staggerDelayBy: 150,
-          appearAnimation: 'accordionVertical',
-          enterAnimation: 'accordionVertical',
-          leaveAnimation: 'accordionVertical',
-        },
-        enableHotKey: true,
+    const accessToken = ref('')
 
-        url: window.location.href,
-
-        defaultAuthor: {
-          avatarUrl: '//avatars1.githubusercontent.com/u/29697133?s=50',
-          login: 'null',
-          url: '',
-        },
-
-        updateCountCallback: null,
-      },
-      props.options
-    )
-
-    state.pagerDirection = innerOptions.pagerDirection
+    state.pagerDirection = state.options.pagerDirection || 'last'
     const storedComment = localStorage.getItem(GT_COMMENT)
+    if (storedComment) {
+      state.comment = storedComment
+      window.localStorage.removeItem(GT_COMMENT)
+    }
+
+    onMounted(async () => {
+      const query = queryParse<{ code?: string }>()
+      if (query.code) {
+        const code = query.code
+        delete query.code
+        const replacedUrl = `${window.location.origin}${
+          window.location.pathname
+        }?${queryStringify(query)}${window.location.hash}`
+        history.replaceState(null, '', replacedUrl)
+        state.options = Object.assign(
+          {},
+          {
+            url: replacedUrl,
+            id: replacedUrl,
+          },
+          props.options
+        )
+
+        const accessRes = await shuimoJSON.post<{
+          access_token: string
+        }>(state.options.proxy as string, {
+          code,
+          client_id: state.options.clientID,
+          client_secret: state.options.clientSecret,
+        })
+
+        if (accessRes.data) {
+          const { access_token } = accessRes.data
+          if (access_token) {
+            accessToken.value = access_token
+          }
+        }
+      }
+    })
     return () => <div class="content">content</div>
   },
 })

@@ -144,6 +144,8 @@ interface GitalkState {
 
   isOccurError: boolean
   errorMsg: string
+
+  options: GitalkOptions
 }
 
 interface
