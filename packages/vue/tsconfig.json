@@ -16,7 +16,10 @@
     "sourceMap": false,
     "baseUrl": ".",
     "types": ["node", "vite/client"],
-    "lib": ["esnext", "dom"]
+    "lib": ["esnext", "dom"],
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": [
     "src",

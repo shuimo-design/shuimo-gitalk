@@ -1,4 +1,7 @@
-const getQL = (vars: Record<string, any>, pagerDirection: 'last' | 'before') => {
+const getQL = (
+  vars: Record<string, any>,
+  pagerDirection: 'last' | 'before'
+) => {
   const cursorDirection = pagerDirection === 'last' ? 'before' : 'after'
   const ql = `
   query getIssueAndComments(
@@ -57,11 +60,8 @@ const getQL = (vars: Record<string, any>, pagerDirection: 'last' | 'before') => 
   return {
     operationName: 'getIssueAndComments',
     query: ql,
-    variables: vars
+    variables: vars,
   }
 }
 
-
-export default function useGraphql(issue: any) {
-
-}
+export default function useGraphql(issue: any) {}

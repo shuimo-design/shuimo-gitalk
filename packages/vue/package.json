@@ -10,6 +10,12 @@
       "import": "./dist/shuimo-gitalk-vue.mjs"
     }
   },
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "README.md",
+    "types.d.ts"
+  ],
   "scripts": {
     "build": "rimraf ./dist && vite build",
     "dev": "vite --port 3333 --open",
@@ -17,6 +23,9 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "vue": "^3.3.4"
+  },
+  "peerDependencies": {
     "vue": "^3.3.4"
   }
 }

@@ -1,18 +1,18 @@
-import { createApp } from 'vue';
-import GitalkComponent from './components/Gitalk';
+import { createApp } from 'vue'
+import GitalkComponent from './components/Gitalk'
 
 class Gitalk {
-  private _options: GitalkOptions;
+  private _options: GitalkOptions
 
   constructor(options: GitalkOptions) {
-    this._options = options;
+    this._options = options
   }
 
   render(constainer: HTMLElement | string) {
     return createApp(GitalkComponent, {
-      options: this._options
-      }).mount(constainer);
+      options: this._options,
+    }).mount(constainer)
   }
 }
 
-export default Gitalk;
+export default Gitalk
