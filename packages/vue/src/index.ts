@@ -8,10 +8,10 @@ class Gitalk {
     this._options = options
   }
 
-  render(constainer: HTMLElement | string) {
+  render(container: HTMLElement | string) {
     return createApp(GitalkComponent, {
       options: this._options,
-    }).mount(constainer)
+    }).mount(container)
   }
 }
 

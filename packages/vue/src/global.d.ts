@@ -76,7 +76,7 @@ interface GitalkOptions {
    *
    * @default 10
    */
-  perPage?: number
+  perPage: number
 
   /**
    * Facebook-like distraction free mode.
@@ -91,7 +91,7 @@ interface GitalkOptions {
    *
    * @default "last"
    */
-  pagerDirection?: 'last' | 'first'
+  pagerDirection: 'last' | 'first'
 
   /**
    * By default, Gitalk will create a corresponding github issue for your every single page automatically when the logined user is belong to the admin users.
@@ -120,7 +120,7 @@ interface GitalkOptions {
 }
 
 interface GitalkState {
-  user?: any
+  user?: UserInfo
   issue?: any
   comments: any[]
   localComments: any[]
@@ -148,4 +148,153 @@ interface GitalkState {
   options: GitalkOptions
 }
 
-interface
+interface UserInfo {
+  login: string
+  id: number
+  node_id: string
+  avatar_url: string
+  gravatar_id: string
+  url: string
+  html_url: string
+  followers_url: string
+  following_url: string
+  gists_url: string
+  starred_url: string
+  subscriptions_url: string
+  organizations_url: string
+  repos_url: string
+  events_url: string
+  received_events_url: string
+  type: 'User'
+  site_admin: boolean
+  name: string
+  company?: string
+  blog: string
+  location: string
+  email?: string
+  hireable?: string
+  bio?: string
+  twitter_username?: string
+  public_repos: number
+  public_gists: number
+  followers: number
+  following: number
+  created_at: string
+  updated_at: string
+}
+
+interface GitHubIssue {
+  url?: string
+  repository_url?: string
+  labels_url?: string
+  comments_url: string
+  events_url?: string
+  html_url?: string
+  id?: number
+  node_id?: string
+  number?: number
+  title?: string
+  user?: {
+    login?: string
+    id?: number
+    node_id?: string
+    avatar_url?: string
+    gravatar_id?: string
+    url?: string
+    html_url?: string
+    followers_url?: string
+    following_url?: string
+    gists_url?: string
+    starred_url?: string
+    subscriptions_url?: string
+    organizations_url?: string
+    repos_url?: string
+    events_url?: string
+    received_events_url?: string
+    type?: string
+    site_admin?: boolean
+  }
+  labels?: {
+    id?: number
+    node_id?: string
+    url?: string
+    name?: string
+    color?: string
+    default?: boolean
+    description?: string | null
+  }[]
+  state?: string
+  locked?: boolean
+  assignee?: null
+  assignees?: []
+  milestone?: null
+  comments?: number
+  created_at?: string
+  updated_at?: string
+  closed_at?: string | null
+  author_association?: string
+  active_lock_reason?: null
+  body?: string
+  closed_by?: null
+  reactions?: {
+    url?: string
+    total_count?: number
+    '+1'?: number
+    '-1'?: number
+    laugh?: number
+    hooray?: number
+    confused?: number
+    heart?: number
+    rocket?: number
+    eyes?: number
+  }
+  timeline_url?: string
+  performed_via_github_app?: null
+  state_reason?: null
+}
+
+interface GitHubComment {
+  id: string
+  databaseId: number
+  author: {
+    avatarUrl: string
+    login: string
+    url: string
+  }
+  bodyHTML: string
+  body: string
+  createdAt: string
+  reactions: {
+    totalCount: number
+    viewerHasReacted: boolean
+    pageInfo: {
+      hasNextPage: boolean
+    }
+    nodes: any[] // 如果需要定义更详细的类型，请根据实际数据结构添加更多信息
+  }
+}
+
+interface GitHubIssueI {
+  title: string
+  url: string
+  bodyHTML: string
+  createdAt: string
+  comments: {
+    totalCount: number
+    pageInfo: {
+      hasPreviousPage: boolean
+      startCursor: string
+      hasNextPage: boolean
+      endCursor: string
+    }
+    nodes: GitHubComment[]
+  }
+}
+
+interface GitHubData {
+  data: {
+    repository: {
+      issue: GitHubIssueI
+    }
+  }
+}

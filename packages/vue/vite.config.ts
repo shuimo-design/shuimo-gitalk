@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -6,7 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 export default defineConfig({
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
-  },  
+  },
   build: {
     lib: {
       entry: 'src/index.ts',
@@ -18,13 +18,10 @@ export default defineConfig({
       output: {
         globals: {
           vue: 'Vue',
-          axios: 'axios'
+          axios: 'axios',
         },
       },
     },
   },
-  plugins: [
-    Vue(),
-    vueJsx()
-  ],
+  plugins: [Vue(), vueJsx()],
 })

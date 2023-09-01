@@ -11,13 +11,12 @@ export const queryParse = <T>(search = window.location.search) => {
 }
 
 export const queryStringify = (query: Record<string, any>) => {
-  const queryString = Object.keys(query)
+  return Object.keys(query)
     .map((key) => `${key}=${encodeURIComponent(query[key] || '')}`)
     .join('&')
-  return queryString
 }
 
-export const getMetaContent = (name: string, content: string) => {
+export const getMetaContent = (name: string, content?: string) => {
   content || (content = 'content')
   const el = window.document.querySelector(`meta[name='${name}']`)
   return el && el.getAttribute(content)

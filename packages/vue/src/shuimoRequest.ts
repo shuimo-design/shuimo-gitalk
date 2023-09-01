@@ -20,7 +20,7 @@ const http = axios.create({
   timeout: 10000,
   // 携带cookie信息
   withCredentials: true,
-  baseURL: 'https://api.github.com',
+  baseURL: '/api',
 })
 
 const { CancelToken } = axios
@@ -73,16 +73,8 @@ http.interceptors.request.use(
 // 响应拦截器
 http.interceptors.response.use(
   (res) => {
-    const newRes = res as AxiosResponse<ResponseTypes>
     removeSource(res.config)
-    if (
-      ![200, 201].includes(newRes.data.code) &&
-      String(newRes.data.code) !== '00000'
-    ) {
-      const msg = newRes.data.message || '请求错误'
-      return Promise.reject(new Error(msg))
-    }
-    return res.data
+    return res
   },
   (error) => {
     if (!error.response) {
@@ -103,16 +95,19 @@ http.interceptors.response.use(
 
 /**
  * get方法，对应get请求
- * @param {String} url [请求的url地址]
- * @param {any} params [请求时携带的参数]
+ * @param url
+ * @param params
+ * @param config
  */
 function shuimoGet<T>(
   url: string,
-  params: Record<string, string | number>
+  params: Record<string, string | number>,
+  config?: AxiosRequestConfig
 ): Promise<AxiosResponse<T>['data']> {
   return new Promise((resolve, reject) => {
     http
       .get(url, {
+        ...config,
         params,
       })
       .then((res: AxiosResponse<T>) => {
@@ -126,16 +121,17 @@ function shuimoGet<T>(
 
 /**
  * post方法，对应post请求
- * @param {String} url [请求的url地址]
- * @param {AxiosResponse} params [请求时携带的参数]
+ * @param url
+ * @param params
  */
 function shuimoPost<T, D extends Object>(
   url: string,
-  params: D
+  params: D,
+  config?: AxiosRequestConfig
 ): Promise<AxiosResponse<T>['data']> {
   return new Promise((resolve, reject) => {
     http
-      .post(url, params)
+      .post(url, params, config)
       .then((res: AxiosResponse<T>) => {
         resolve(res.data)
       })
@@ -146,7 +142,7 @@ function shuimoPost<T, D extends Object>(
 }
 
 export const formatErrorMsg = (err: {
-  response: { data: { message: any; errors: any[] } }
+  response?: { data: { message: any; errors: any[] } }
   message: string
 }) => {
   let msg = 'Error: '

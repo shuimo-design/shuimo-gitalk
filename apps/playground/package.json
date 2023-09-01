@@ -2,7 +2,7 @@
   "name": "shuimo-gitalk-playground",
   "scripts": {
     "build": "vite build",
-    "dev": "vite --port 3333 --open",
+    "dev": "vite",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit"
   },

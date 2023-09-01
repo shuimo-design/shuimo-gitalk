@@ -10,9 +10,7 @@ export default defineConfig({
     vueJsx(),
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
-      imports: [
-        'vue'
-      ],
+      imports: ['vue'],
       dts: true,
     }),
     // https://github.com/antfu/vite-plugin-components
@@ -20,4 +18,13 @@ export default defineConfig({
       dts: true,
     }),
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.github.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })
