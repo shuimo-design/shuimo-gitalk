@@ -127,7 +127,94 @@ export default function useGraphql(token: Ref<string>) {
     return cs
   }
 
+  const unLike = async (comment: any) => {
+    const { user } = state
+    let { comments } = state
+
+    const getQL = (id: string) => ({
+      operationName: 'RemoveReaction',
+      query: `
+          mutation RemoveReaction{
+            removeReaction (input:{
+              subjectId: "${id}",
+              content: HEART
+            }) {
+              reaction {
+                content
+              }
+            }
+          }
+        `,
+    })
+
+    const res = await shuimoPost('/graphql', getQL(comment.gId), {
+      headers: {
+        Authorization: `bearer ${token.value}`,
+      },
+    })
+    if (res) {
+      comments = comments.map((c) => {
+        if (c.id === comment.id) {
+          const index = c.reactions.nodes.findIndex(
+            (n: any) => n.user.login === user?.login
+          )
+          if (~index) {
+            c.reactions.totalCount -= 1
+            c.reactions.nodes.splice(index, 1)
+          }
+          c.reactions.viewerHasReacted = false
+          return Object.assign({}, c)
+        }
+        return c
+      })
+      state.comments = comments
+    }
+  }
+
+  const like = async (comment: any) => {
+    const { owner, repo } = state.options
+    const { user } = state
+    let { comments } = state
+
+    const res = await shuimoPost(
+      `/repos/${owner}/${repo}/issues/comments/${comment.id}/reactions`,
+      {
+        content: 'heart',
+      },
+      {
+        headers: {
+          Authorization: `token ${token.value}`,
+          Accept: 'application/vnd.github.squirrel-girl-preview',
+        },
+      }
+    )
+    comments = comments.map((c) => {
+      if (c.id === comment.id) {
+        if (c.reactions) {
+          if (
+            !~c.reactions.nodes.findIndex(
+              (n: any) => n.user.login === user?.login
+            )
+          ) {
+            c.reactions.totalCount += 1
+          }
+        } else {
+          c.reactions = { nodes: [] }
+          c.reactions.totalCount = 1
+        }
+
+        c.reactions.nodes.push(res)
+        c.reactions.viewerHasReacted = true
+        return Object.assign({}, c)
+      }
+      return c
+    })
+    state.comments = comments
+  }
+
   return {
     getCommentsByGraphql,
+    like,
+    unLike,
   }
 }

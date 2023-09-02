@@ -1216,3 +1216,20 @@
 }
 
 /*# sourceMappingURL=gitalk.css.map*/
+
+
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+  
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(-2rem);
+}
+  
+.list-leave-active {
+  position: absolute;
+}

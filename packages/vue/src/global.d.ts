@@ -298,3 +298,7 @@ interface GitHubData {
     }
   }
 }
+
+interface Window {
+  GT_i18n_LocaleMap: Record<string, any>
+}

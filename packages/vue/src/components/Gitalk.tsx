@@ -1,14 +1,17 @@
-import { defineComponent, onMounted, ref } from 'vue'
+import { TransitionGroup, defineComponent, nextTick, onMounted, ref } from 'vue'
 import { MBorder, MButton, MLoading, MPopover } from 'shuimo-ui'
+import autosize from 'autosize'
 import { GT_COMMENT, GT_VERSION } from '@/constant'
 import { queryParse, queryStringify } from '@/utils'
 import { formatErrorMsg, shuimoJSON } from '@/shuimoRequest'
 import { state } from '@/store'
 import useGithub from '@/composables/useGithub'
 import useI18n from '@/composables/useI18n'
+import useGraphql from '@/composables/useGraphql'
 import Action from './Action'
 import Svg from './Svg'
 import Avatar from './Avatar'
+import Commen from './Commen'
 import type { PropType } from 'vue'
 import 'shuimo-ui/dist/style.css'
 
@@ -28,7 +31,7 @@ export default defineComponent({
 
     const accessToken = ref('')
     const createBtnRef = ref<HTMLElement>()
-    const commentRef = ref<HTMLTextAreaElement>()
+    const commentRef = ref<HTMLElement>()
 
     state.pagerDirection = state.options.pagerDirection || 'last'
     const storedComment = localStorage.getItem(GT_COMMENT)
@@ -48,6 +51,7 @@ export default defineComponent({
       createComment,
       previewComment,
     } = useGithub(accessToken)
+    const { like, unLike } = useGraphql(accessToken)
     const i18n = useI18n(state.options.language as string)
 
     const init = async () => {
@@ -433,6 +437,45 @@ export default defineComponent({
         </div>
       )
     }
+
+    const reply = (c: any) => {
+      const { comment } = state
+      const replyCommentBody = c.body
+      let replyCommentArray = replyCommentBody.split('\n')
+      replyCommentArray.unshift(`@${c.user.login}`)
+      replyCommentArray = replyCommentArray.map((t: any) => `> ${t}`)
+      replyCommentArray.push('', '')
+      if (comment) replyCommentArray.unshift('')
+      state.comment += replyCommentArray.join('\n')
+      nextTick(() => {
+        autosize.update(commentRef.value as Element)
+        commentRef.value && commentRef.value.focus()
+      })
+    }
+
+    const comments = () => {
+      const totalComments = state.comments.concat([])
+      if (state.pagerDirection === 'last' && accessToken.value) {
+        totalComments.reverse()
+      }
+      return (
+        <div class="gt-comments" key="comments">
+          <TransitionGroup name="list">
+            {totalComments.map((c) => (
+              <Commen
+                comment={c}
+                key={c.id}
+                commentedText={i18n.t('commented')}
+                onReply={reply}
+                onUnlike={unLike}
+                onLike={like}
+              />
+            ))}
+          </TransitionGroup>
+        </div>
+      )
+    }
+
     return () => (
       <div
         class={`gt-container${state.isInputFocused ? ' gt-input-focused' : ''}`}
@@ -440,7 +483,8 @@ export default defineComponent({
         {state.isIniting && loading()}
         {!state.isIniting && (state.isNoInit ? [] : [meta()])}
         {state.isOccurError && <div class="gt-error">{state.errorMsg}</div>}
-        {!state.isIniting && (state.isNoInit ? [noInit()] : [header()])}
+        {!state.isIniting &&
+          (state.isNoInit ? [noInit()] : [header(), comments()])}
       </div>
     )
   },
