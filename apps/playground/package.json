@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "vue": "^3.3.4",
-    "shuimo-gitalk-vue": "workspace:*"
+    "shuimo-gitalk": "workspace:*",
+    "shuimo-ui": "0.3.0-alpha.7"
   },
   "devDependencies": {
     "unplugin-auto-import": "^0.16.6",

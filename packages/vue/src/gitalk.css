@@ -727,17 +727,22 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-.gt-container a {
-  color: var(--m-color-text);
-}
-.gt-container a:hover {
+.gt-container .gt-action,
+.gt-container .gt-link,
+.gt-container .gt-header-controls-tip,
+.gt-container .gt-no-init a {
   color: var(--m-color-success);
 }
-.gt-container a.is--active {
+.gt-container .gt-action:hover,
+.gt-container .gt-link:hover,
+.gt-container .gt-header-controls-tip:hover  {
+  color: var(--m-color-error);
+}
+.gt-container .gt-action.is--active {
   color: var(--m-color-error);
   cursor: default !important;
 }
-.gt-container a.is--active:hover {
+.gt-container .gt-action.is--active:hover {
   color: var(--m-color-error);
 }
 .gt-container .hide {
@@ -891,7 +896,7 @@
   text-align: center;
 }
 .gt-container .gt-link {
-  border-bottom: 1px dotted #6190e8;
+  border-bottom: 1px dotted var(--m-color-warn);
 }
 .gt-container .gt-link-counts,
 .gt-container .gt-link-project {
@@ -1091,16 +1096,15 @@
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  margin-left: 1.25em;
   padding: 0.75em 1em;
-  background-color: #f9f9f9;
+  background: url(../assets/role.png) no-repeat;
+  background-size: 100% 100%;
+  z-index: -1;
+  opacity: 0.7;
+  border-radius: 3px;
   overflow: auto;
   -webkit-transition: all ease 0.25s;
   transition: all ease 0.25s;
-}
-.gt-container .gt-comment-content:hover {
-  -webkit-box-shadow: 0 0.625em 3.75em 0 #f4f4f4;
-          box-shadow: 0 0.625em 3.75em 0 #f4f4f4;
 }
 @media (max-width: 479px) {
   .gt-container .gt-comment-content {
@@ -1125,7 +1129,7 @@
 }
 .gt-container .gt-comment-username {
   font-weight: 500;
-  color: #6190e8;
+  color: var(--m-color-error);
   text-decoration: none;
 }
 .gt-container .gt-comment-username:hover {
@@ -1133,11 +1137,11 @@
 }
 .gt-container .gt-comment-text {
   margin-left: 0.5em;
-  color: #a1a1a1;
+  color: var(--m-color-text-dark);
 }
 .gt-container .gt-comment-date {
   margin-left: 0.5em;
-  color: #a1a1a1;
+  color: var(--m-color-text-dark);
 }
 .gt-container .gt-comment-like,
 .gt-container .gt-comment-edit,
@@ -1191,9 +1195,6 @@
 .gt-container .gt-comment-body .email-hidden-reply.expanded {
   display: block;
 }
-.gt-container .gt-comment-admin .gt-comment-content {
-  background-color: #f6f9fe;
-}
 @-webkit-keyframes gt-kf-rotate {
   0% {
     -webkit-transform: rotate(0);
@@ -1232,4 +1233,40 @@
   
 .list-leave-active {
   position: absolute;
+}
+
+
+.gt-comment-border {
+  width: 100%;
+  margin-left: 1.25em;
+  transition: all ease .25s;
+}
+
+.gt-comment-border:hover {
+  box-shadow: 0 0 10px #000;
+}
+
+.gt-header-comment-border {
+  width: 100%;
+  transition: all ease .25s;
+}
+
+.gt-header-comment-border:hover {
+  box-shadow: 0 0 10px #000;
+}
+
+.gt-ico-heart svg {
+  color: var(--m-color-error);
+}
+
+.gt-ico-reply svg {
+  color: var(--m-color-error);
+}
+
+.gt-ico-edit svg {
+  color: var(--m-color-error);
+}
+
+.m-auto {
+  margin: auto;
 }

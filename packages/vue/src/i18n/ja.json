@@ -1,5 +1,5 @@
 {
-  "init": "Gitalk を読み込んでいます...",
+  "init": "Shuimo Gitalk を読み込んでいます...",
   "no-found-related": "%{link} に関連するものが見当たりません",
   "please-contact": "コメントを初期化するために %{user} に連絡してください",
   "init-issue": "イシューを初期化する",

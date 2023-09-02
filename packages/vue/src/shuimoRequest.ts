@@ -20,7 +20,7 @@ const http = axios.create({
   timeout: 10000,
   // 携带cookie信息
   withCredentials: true,
-  baseURL: '/api',
+  baseURL: 'https://api.github.com',
 })
 
 const { CancelToken } = axios

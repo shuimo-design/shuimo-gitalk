@@ -1,13 +1,21 @@
 {
-  "name": "shuimo-gitalk-vue",
-  "main": "dist/shuimo-gitalk-vue.mjs",
-  "module": "dist/shuimo-gitalk-vue.mjs",
-  "browser": "dist/shuimo-gitalk-vue.umd.js",
+  "name": "shuimo-gitalk",
+  "version": "1.0.0",
+  "description": "A Vue3 component for Gitalk designed for Shuimo",
+  "keywords": [
+    "vue3",
+    "gitalk",
+    "shuimo",
+    "水墨"
+  ],
+  "main": "dist/shuimo-gitalk.mjs",
+  "module": "dist/shuimo-gitalk.mjs",
+  "browser": "dist/shuimo-gitalk.umd.js",
   "types": "types.d.ts",
   "exports": {
     ".": {
       "types": "./types.d.ts",
-      "import": "./dist/shuimo-gitalk-vue.mjs"
+      "import": "./dist/shuimo-gitalk.mjs"
     },
     "./*": "./*"
   },
@@ -27,7 +35,6 @@
     "autosize": "^6.0.1",
     "date-fns": "^2.30.0",
     "node-polyglot": "^2.5.0",
-    "shuimo-ui": "0.3.0-alpha.7",
     "vue": "^3.3.4"
   },
   "peerDependencies": {
@@ -35,6 +42,7 @@
   },
   "devDependencies": {
     "@types/autosize": "^4.0.1",
-    "@types/node-polyglot": "^2.4.2"
+    "@types/node-polyglot": "^2.4.2",
+    "shuimo-ui": "0.3.0-alpha.7"
   }
 }

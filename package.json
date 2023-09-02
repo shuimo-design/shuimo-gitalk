@@ -1,12 +1,11 @@
 {
-  "name": "shuimo-gitalk",
+  "name": "shuimo-design-gitalk",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
+  "description": "gitalk design for shuimo",
+  "keywords": [
+    "shuimo",
+    "gitalk"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {

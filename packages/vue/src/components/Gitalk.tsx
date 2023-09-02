@@ -11,9 +11,8 @@ import useGraphql from '@/composables/useGraphql'
 import Action from './Action'
 import Svg from './Svg'
 import Avatar from './Avatar'
-import Commen from './Commen'
+import Comment from './Comment'
 import type { PropType } from 'vue'
-import 'shuimo-ui/dist/style.css'
 
 export default defineComponent({
   name: 'Gitalk',
@@ -122,7 +121,7 @@ export default defineComponent({
 
     const loading = () => (
       <div class="gt-initing">
-        <MLoading />
+        <MLoading class="m-auto" />
         <p class="gt-initing-text">{i18n.t('init')}</p>
       </div>
     )
@@ -176,6 +175,7 @@ export default defineComponent({
           ) : null}
           {!user && (
             <MButton
+              type="confirm"
               class="gt-btn-login"
               onClick={handleLogin}
               text={i18n.t('login-with-github')}
@@ -380,7 +380,7 @@ export default defineComponent({
             </a>
           )}
           <div class="gt-header-comment">
-            <MBorder>
+            <MBorder class="gt-header-comment-border">
               <textarea
                 class={`gt-header-textarea ${state.isPreview ? 'hide' : ''}`}
                 value={state.comment}
@@ -462,7 +462,7 @@ export default defineComponent({
         <div class="gt-comments" key="comments">
           <TransitionGroup name="list">
             {totalComments.map((c) => (
-              <Commen
+              <Comment
                 comment={c}
                 key={c.id}
                 commentedText={i18n.t('commented')}

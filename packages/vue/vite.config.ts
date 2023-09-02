@@ -10,15 +10,17 @@ export default defineConfig({
   build: {
     lib: {
       entry: 'src/index.ts',
-      name: 'shuimo-gitalk-vue',
+      name: 'shuimo-gitalk',
       formats: ['es', 'umd'],
     },
     rollupOptions: {
-      external: ['vue', 'axios'],
+      external: ['vue', 'axios', 'shuimo-ui'],
       output: {
+        exports: 'named',
         globals: {
           vue: 'Vue',
           axios: 'axios',
+          'shuimo-ui': 'shuimo-ui',
         },
       },
     },
