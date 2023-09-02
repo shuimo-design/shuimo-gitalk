@@ -20,12 +20,27 @@ Gitalk 是一个基于 GitHub Issue 和 Vue 开发的评论插件。
 
 ## 安装
 
-- npm 安装
+- pkg安装
+
+> npm
 
 ```sh
 npm i --save shuimo-gitalk
+```
+
+> yarn
+
+```sh
+yarn add shuimo-gitalk
+```
+
+> pnpm
+
+```sh
 pnpm add shuimo-gitalk
 ```
+
+> 使用
 
 ```js
 import 'shuimo-gitalk/dist/style.css'

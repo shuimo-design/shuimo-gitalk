@@ -1,3 +1,4 @@
+import { MAvatar } from 'shuimo-ui'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -21,7 +22,7 @@ export default defineComponent({
       '//github.com/shuimo-design/shuimo-gitalk/blob/main/logo.svg'
     return () => (
       <div class={`gt-avatar ${props.className}`}>
-        <img src={props.src || defaultSrc} alt={`@${props.alt}`} />
+        <MAvatar img={props.src || defaultSrc} size="large" />
       </div>
     )
   },

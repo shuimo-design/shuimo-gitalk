@@ -830,14 +830,9 @@
     height: 2em;
   }
 }
-.gt-container .gt-avatar img {
-  width: 100%;
-  height: auto;
-  border-radius: 3px;
-}
 .gt-container .gt-avatar-github {
   width: 3em;
-  height: 3em;
+  height: 2em;
   cursor: pointer;
 }
 @media (max-width: 479px) {
@@ -1108,8 +1103,10 @@
 }
 @media (max-width: 479px) {
   .gt-container .gt-comment-content {
-    margin-left: 0.875em;
     padding: 0.625em 0.75em;
+  }
+  .gt-container .gt-comment-border {
+    margin-left: 0.875em;
   }
 }
 .gt-container .gt-comment-header {
