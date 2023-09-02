@@ -1,6 +1,6 @@
 {
   "name": "shuimo-gitalk",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A Vue3 component for Gitalk designed for Shuimo",
   "keywords": [
     "vue3",
