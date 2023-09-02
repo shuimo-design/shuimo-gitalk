@@ -23,7 +23,8 @@
     "dist",
     "CHANGELOG.md",
     "README.md",
-    "types.d.ts"
+    "types.d.ts",
+    "assets"
   ],
   "scripts": {
     "build": "rimraf ./dist && vite build",
