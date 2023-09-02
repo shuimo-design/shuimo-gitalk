@@ -1,6 +1,6 @@
 {
   "name": "shuimo-gitalk",
-  "version": "0.0.0",
+  "version": "0.0.1-beta.0",
   "description": "A Vue3 component for Gitalk designed for Shuimo",
   "keywords": [
     "vue3",
@@ -29,7 +29,9 @@
     "build": "rimraf ./dist && vite build",
     "dev": "vite --port 3333 --open",
     "preview": "vite preview",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "prepublish": "pnpm run build && pnpm run typecheck",
+    "release": "pnpm bumpp"
   },
   "dependencies": {
     "autosize": "^6.0.1",
