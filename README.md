@@ -182,3 +182,16 @@ gitalk.render('#gitalk-container')
 
 - [gitment](https://github.com/imsun/gitment)
 - [vssue](https://vssue.js.org/zh)
+
+## 示例
+
+<p align="center">
+  <a target="_blank" rel="noopener noreferrer">
+    <img src="https://github.com/shuimo-design/shuimo-gitalk/blob/main/snapshots/init.png" 
+        alt="shuimo logo">
+  </a>
+   <a target="_blank" rel="noopener noreferrer">
+    <img src="https://github.com/shuimo-design/shuimo-gitalk/blob/main/snapshots/comments.png" 
+        alt="shuimo logo">
+  </a>
+</p>
