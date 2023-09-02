@@ -2,7 +2,7 @@ import { computed } from 'vue'
 import { GT_ACCESS_TOKEN } from '@/constant'
 import { shuimoGet, shuimoPost } from '@/shuimoRequest'
 import { setState, state } from '@/store'
-import { getMetaContent } from '@/utils'
+import { getMetaContent, queryStringify } from '@/utils'
 import useGraphql from './useGraphql'
 import type { Ref } from 'vue'
 
@@ -14,7 +14,7 @@ import type { Ref } from 'vue'
  *
  * Hello, humor
  */
-export default function useInit(token: Ref<string>) {
+export default function useGithub(token: Ref<string>) {
   const logout = () => {
     setState<GitalkState, 'user'>(state, 'user', undefined)
     window.localStorage.removeItem(GT_ACCESS_TOKEN)
@@ -27,6 +27,17 @@ export default function useInit(token: Ref<string>) {
       user &&
       admin.map((a) => a.toLowerCase()).indexOf(user.login.toLowerCase())
     )
+  })
+
+  const loginLink = computed(() => {
+    const githubOauthUrl = 'https://github.com/login/oauth/authorize'
+    const { clientID } = state.options
+    const query = {
+      client_id: clientID,
+      redirect_uri: window.location.href,
+      scope: 'public_repo',
+    }
+    return `${githubOauthUrl}?${queryStringify(query)}`
   })
 
   const getUserInfo = async () => {
@@ -117,7 +128,6 @@ export default function useInit(token: Ref<string>) {
         },
       }
     )
-    console.log('issueInfos', issueInfos)
     const { createIssueManually } = state.options
     let isNoInit = false
     let issue = undefined
@@ -146,9 +156,6 @@ export default function useInit(token: Ref<string>) {
     }
 
     const issueInfoByLabels = await getIssueByLabels()
-    console.log('issueInfoByLabels', issueInfoByLabels)
-
-    console.log('number', number)
 
     if (number && number > 0) {
       const issueInfoById = await getIssueById()
@@ -173,7 +180,7 @@ export default function useInit(token: Ref<string>) {
     }
 
     const res = await shuimoGet<GitHubComment[]>(
-      issueInfo.comments_url,
+      '/repos/youuss/blog-talk/issues/1/comments',
       {
         per_page: perPage,
         page,
@@ -214,9 +221,50 @@ export default function useInit(token: Ref<string>) {
     return commentsV3
   }
 
+  const createComment = async () => {
+    const issue = await getIssue()
+    if (issue) {
+      const res = await shuimoPost<Boolean, any>(
+        issue.comments_url,
+        {
+          body: state.comment,
+        },
+        {
+          headers: {
+            Accept: 'application/vnd.github.v3.full+json',
+            Authorization: `token ${token.value}`,
+          },
+        }
+      )
+      if (res) {
+        state.comment = ''
+        state.comments = state.comments.concat(res)
+        state.localComments = state.localComments.concat(res)
+      }
+    }
+  }
+
+  const previewComment = async () => {
+    const previewRes = await shuimoPost<string, any>('/markdown', {
+      text: state.comment,
+    }).catch((err) => {
+      state.isOccurError = true
+      state.errorMsg = err.formatErrorMsg(err)
+    })
+    if (previewRes) {
+      state.previewHtml = previewRes
+    }
+  }
+
   return {
     getUserInfo,
     getIssue,
     getComments,
+    createIssue,
+    loginLink,
+    isAdmin,
+    logout,
+    createComment,
+    previewComment,
   }
 }

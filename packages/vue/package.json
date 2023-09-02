@@ -8,7 +8,8 @@
     ".": {
       "types": "./types.d.ts",
       "import": "./dist/shuimo-gitalk-vue.mjs"
-    }
+    },
+    "./*": "./*"
   },
   "files": [
     "dist",
@@ -23,9 +24,15 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "autosize": "^6.0.1",
+    "node-polyglot": "^2.5.0",
+    "shuimo-ui": "0.3.0-alpha.7",
     "vue": "^3.3.4"
   },
   "peerDependencies": {
     "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@types/node-polyglot": "^2.4.2"
   }
 }

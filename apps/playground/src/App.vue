@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Gitalk from 'shuimo-gitalk-vue'
+import 'shuimo-gitalk-vue/dist/style.css'
 onMounted(() => {
   const gitalk = new Gitalk({
     clientID: 'c0410a3281b1991b5b1b',

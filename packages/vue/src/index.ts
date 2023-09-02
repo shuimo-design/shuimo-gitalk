@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import GitalkComponent from './components/Gitalk'
+import './gitalk.css'
 
 class Gitalk {
   private _options: GitalkOptions
