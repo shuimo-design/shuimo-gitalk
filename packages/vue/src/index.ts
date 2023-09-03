@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import GitalkComponent from './components/Gitalk'
+import ShuimoGitalk from './components/Gitalk'
 import './gitalk.css'
 
 class Gitalk {
@@ -10,7 +10,7 @@ class Gitalk {
   }
 
   render(container: HTMLElement | string) {
-    return createApp(GitalkComponent, {
+    return createApp(ShuimoGitalk, {
       options: this._options,
     }).mount(container)
   }
@@ -18,4 +18,4 @@ class Gitalk {
 
 export default Gitalk
 
-export { GitalkComponent }
+export { ShuimoGitalk }

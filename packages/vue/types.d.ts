@@ -1,6 +1,10 @@
+import type { ShuimoGitalk as GitalkComponent } from 'src'
+
 export as namespace Gitalk
 
 export default Gitalk
+
+export declare const ShuimoGitalk: typeof GitalkComponent
 
 /*~ You can declare types that are available via importing the module */
 declare class Gitalk {
